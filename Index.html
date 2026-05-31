@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Credibility & Logic Barometer</title>
+    <style>
+        :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .app-container { background: var(--panel); padding: 40px 20px; border-radius: 24px; width: 100%; max-width: 380px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header-label { font-size: 12px; color: #888d99; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .score-display { font-size: 82px; font-weight: bold; margin: 15px 0; color: var(--accent); }
+        .unit { font-size: 24px; color: #888d99; vertical-align: top; margin-left: 5px; }
+        .status-bar { background: #111318; padding: 10px; border-radius: 8px; font-size: 12px; color: #888d99; margin-bottom: 25px; border: 1px solid #242731; font-weight: bold; }
+        .btn { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 14px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-tag { margin-top: 30px; font-size: 10px; color: #3a3f50; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header-label">AI Credibility Rating</div>
+        <div class="status-bar" id="status">Awaiting AI Input for Debate...</div>
+        <div class="score-display"><span id="score">--</span><span class="unit">%</span></div>
+        <button class="btn" onclick="verifyAI()">Verify Logic Path</button>
+    </div>
+
+    <div class="footer-tag">AI Testing Matrix | Tone Strike Labs &copy; 2026</div>
+
+    <script>
+        function verifyAI() {
+            const status = document.getElementById('status');
+            const score = document.getElementById('score');
+            status.innerText = "Scanning Response for Hallucinations...";
+            status.style.color = "#e53935";
+            
+            setTimeout(() => {
+                // Logic simulation: High % = Credible, Low % = Not Credible
+                const credibilityRating = (Math.random() * (100 - 45) + 45).toFixed(1);
+                score.innerText = credibilityRating;
+                
+                if (credibilityRating > 85) {
+                    status.innerText = "HIGH CREDIBILITY: Logic Verified";
+                    status.style.color = "#00ff66";
+                    score.style.color = "#00ff66";
+                } else if (credibilityRating > 70) {
+                    status.innerText = "NEUTRAL: Verify Sources";
+                    status.style.color = "#aaaaaa";
+                    score.style.color = "#aaaaaa";
+                } else {
+                    status.innerText = "LOW CREDIBILITY: Debate Required";
+                    status.style.color = "#e53935";
+                    score.style.color = "#e53935";
+                }
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
