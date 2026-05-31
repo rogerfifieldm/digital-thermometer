@@ -1,2 +1,2 @@
 # digital-thermometer
-High-precision ambient environment temperature monitor featuring the Tone Strike Tech Engine V1.0. Fast, browser-based sensor synchronization for mobile and desktop.
+AI Credibility & Debate Barometer: A high-precision diagnostic tool for verifying AI response integrity. Analyzes logic paths to determine credibility ratings and identify potential hallucinations in real-time.
