@@ -8,11 +8,10 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         
-        /* Interactive User Profile Input Header Bar */
+        /* Interactive User Profile Input Header Bar - Clean Text Version */
         .profile-header { display: flex; flex-direction: column; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; gap: 8px; }
         .profile-display-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .user-block { display: flex; align-items: center; gap: 10px; }
-        .user-info { display: flex; flex-direction: column; text-align: left; }
+        .user-block { display: flex; flex-direction: column; text-align: left; }
         .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
         .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; margin-top: 2px; }
         .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
@@ -154,9 +153,10 @@
             const msg = document.getElementById('supportMessage').value.trim();
             const alertBox = document.getElementById('validationAlert');
             
-            // Standard cryptographic regex pattern to test for legitimate emails (e.g., name@domain.com)
+            // Comprehensive regular expression checking for a standard email pattern (letters/numbers + @ + domain)
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+            // 1st Priority: Check if fields are actually completely empty
             if (!name || !email || !msg) {
                 event.preventDefault();
                 alertBox.innerText = "ERROR: ALL FIELDS REQUIRED";
@@ -165,9 +165,10 @@
                 return false;
             }
 
+            // 2nd Priority: Intercept incorrect layouts like "upto u and email"
             if (!emailPattern.test(email)) {
-                event.preventDefault(); // Stop form submission entirely
-                alertBox.innerText = "ERROR: PLEASE INCLUDE A VALID EMAIL";
+                event.preventDefault(); // Lock transmission
+                alertBox.innerText = "ERROR: PLEASE INPUT A PROPER EMAIL";
                 alertBox.style.color = "var(--accent)";
                 alertBox.style.display = "block";
                 return false;
