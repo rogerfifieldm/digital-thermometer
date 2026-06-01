@@ -12,7 +12,6 @@
         .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .unit-title { font-size: 9px; color: #5d626e; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         
-        /* Clickable Input Boxes */
         .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: #00ff66; font-size: 10px; padding: 5px; border-radius: 4px; margin-bottom: 10px; height: 50px; resize: none; font-family: monospace; }
         .ai-input:focus { border-color: var(--accent); outline: none; }
 
@@ -21,7 +20,17 @@
         .status-bar { background: #111318; padding: 4px; border-radius: 4px; font-size: 8px; color: #888d99; margin-bottom: 12px; border: 1px solid #242731; height: 28px; display: flex; align-items: center; justify-content: center; }
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
         .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
-        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 10px; }
+        
+        /* New Tracking & Meta Section */
+        .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 15px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
+        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
+        .tracking-value { color: var(--safe); font-family: monospace; }
+        
+        /* Legal Section */
+        .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-top: 20px; line-height: 1.4; padding: 0 10px; box-sizing: border-box; }
+        .legal-title { font-weight: bold; text-transform: uppercase; color: #5d626e; margin-bottom: 4px; }
+
+        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -43,6 +52,21 @@
         </div>
     </div>
     <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
+
+    <div class="meta-panel">
+        <div class="tracking-row"><span>User Profile Tracking ID:</span><span class="tracking-value" id="profileId">TSL-9842-X</span></div>
+        <div class="tracking-row"><span>System Repair Registry Log:</span><span class="tracking-value" id="repairId">ERR-00-OK</span></div>
+        <div class="tracking-row"><span>System Download Metrics:</span><span class="tracking-value" id="downloadCount">1,412</span></div>
+    </div>
+
+    <div class="legal-box">
+        <div class="legal-title">Commercial Disclaimers & Licensing</div>
+        This application utility is properties of Tone Strike Labs. All logical analytical scores generated are for verification and comparative evaluation purposes only. Tone Strike Labs guarantees no specific external data outcomes. 
+        <br><br>
+        <div class="legal-title">Return & Refund Policy</div>
+        Standard monthly licensing fees ($19.99/mo) and Pro Founder Lifetime passes ($149.00) qualify for a full refund within fourteen (14) days of transaction origin, provided no license key abuse or source code reproduction has occurred. Contact administrative options to initiate processing requests.
+    </div>
+
     <div class="footer-tag">Tone Strike Labs | Ver. 2.2 (Comparison Mode)</div>
 
     <script>
