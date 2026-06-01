@@ -8,16 +8,23 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         
-        /* Clickable Admin Profile Header Bar */
-        .profile-header { display: flex; align-items: center; justify-content: space-between; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 8px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; cursor: pointer; transition: background 0.2s; }
-        .profile-header:hover { background: #222530; }
+        /* Interactive User Profile Input Header Bar */
+        .profile-header { display: flex; flex-direction: column; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; gap: 8px; }
+        .profile-display-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
         .user-block { display: flex; align-items: center; gap: 10px; }
         .avatar-box { width: 32px; height: 32px; background: #333; border-radius: 50%; border: 2px solid #5d626e; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .user-info { display: flex; flex-direction: column; text-align: left; }
         .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
         .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; }
         .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
-        .status-dot { width: 6px; height: 6px; background: #5d626e; border-radius: 50%; }
+        .status-dot { width: 6px; height: 6px; background: var(--safe); border-radius: 50%; box-shadow: 0 0 6px var(--safe); }
+        
+        /* Input controls inside the header */
+        .profile-input-row { display: flex; gap: 6px; width: 100%; border-top: 1px solid #242731; padding-top: 8px; }
+        .profile-field { flex: 1; background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 5px; border-radius: 4px; font-family: inherit; }
+        .profile-field:focus { border-color: var(--accent); outline: none; }
+        .profile-btn { background: #333; color: white; border: 1px solid #444; padding: 5px 10px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+        .profile-btn:hover { background: var(--accent); border-color: var(--accent); }
 
         .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 15px 0; font-weight: bold; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
@@ -33,7 +40,7 @@
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
         .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        /* Tech Support Contact Section with Image Upload capabilities */
+        /* Tech Support Contact Section */
         .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; }
         .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         .support-form { display: flex; flex-direction: column; gap: 8px; }
@@ -57,19 +64,26 @@
 </head>
 <body>
 
-    <div class="profile-header" onclick="alert('Admin Panel: Verification Matrix Logged.')">
-        <div class="user-block">
-            <div class="avatar-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#5d626e"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    <div class="profile-header">
+        <div class="profile-display-row">
+            <div class="user-block">
+                <div class="avatar-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#5d626e"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <div class="user-info">
+                    <span class="username" id="displayUsername">Tone Strike Labs Admin Account</span>
+                    <span class="account-tier" id="displayTier">System Access Profile</span>
+                </div>
             </div>
-            <div class="user-info">
-                <span class="username">Tone Strike Labs Admin Account</span>
-                <span class="account-tier">System Access Profile</span>
+            <div class="status-dot-container">
+                <div class="status-dot" id="displayDot"></div>
+                <span id="displayStatus">Offline</span>
             </div>
         </div>
-        <div class="status-dot-container">
-            <div class="status-dot"></div>
-            <span>Offline</span>
+        
+        <div class="profile-input-row">
+            <input type="text" id="userInputName" class="profile-field" placeholder="Enter Username...">
+            <button class="profile-btn" onclick="updateUserProfile()">Set User</button>
         </div>
     </div>
 
@@ -125,6 +139,24 @@
     <div class="footer-tag">System Engineered by Tone Strike Labs | Ver. 2.2</div>
 
     <script>
+        function updateUserProfile() {
+            const nameInput = document.getElementById('userInputName').value;
+            const nameDisplay = document.getElementById('displayUsername');
+            const tierDisplay = document.getElementById('displayTier');
+            const statusDisplay = document.getElementById('displayStatus');
+            const dotDisplay = document.getElementById('displayDot');
+            
+            if(nameInput.trim() !== "") {
+                nameDisplay.innerText = nameInput;
+                tierDisplay.innerText = "Authenticated Session User";
+                statusDisplay.innerText = "Online";
+                statusDisplay.style.color = "var(--safe)";
+                dotDisplay.style.background = "var(--safe)";
+                dotDisplay.style.boxShadow = "0 0 6px var(--safe)";
+                document.getElementById('userInputName').value = "";
+            }
+        }
+
         function verify(u) {
             const input = document.getElementById('input' + u).value;
             const s = document.getElementById('status' + u);
