@@ -8,15 +8,16 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         
-        /* User Profile Login Header */
-        .profile-header { display: flex; align-items: center; justify-content: space-between; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 8px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; }
+        /* Clickable Admin Profile Header Bar */
+        .profile-header { display: flex; align-items: center; justify-content: space-between; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 8px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; cursor: pointer; transition: background 0.2s; }
+        .profile-header:hover { background: #222530; }
         .user-block { display: flex; align-items: center; gap: 10px; }
-        .avatar-box { width: 32px; height: 32px; background: #333; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .avatar-box { width: 32px; height: 32px; background: #333; border-radius: 50%; border: 2px solid #5d626e; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .user-info { display: flex; flex-direction: column; text-align: left; }
         .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
-        .account-tier { font-size: 8px; color: var(--safe); text-transform: uppercase; font-weight: bold; }
+        .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; }
         .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
-        .status-dot { width: 6px; height: 6px; background: var(--safe); border-radius: 50%; box-shadow: 0 0 6px var(--safe); }
+        .status-dot { width: 6px; height: 6px; background: #5d626e; border-radius: 50%; }
 
         .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 15px 0; font-weight: bold; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
@@ -32,42 +33,43 @@
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
         .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 15px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
-        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
-        .tracking-value { color: var(--safe); font-family: monospace; }
-        
-        /* Tech Support Contact Section */
+        /* Tech Support Contact Section with Image Upload capabilities */
         .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; }
         .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         .support-form { display: flex; flex-direction: column; gap: 8px; }
         .support-field { background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 6px; border-radius: 4px; font-family: inherit; }
         .support-field:focus { border-color: var(--accent); outline: none; }
         .support-field::placeholder { color: #5d626e; }
+        .support-file-label { font-size: 8px; color: #888d99; text-transform: uppercase; margin-top: 2px; font-weight: bold; }
         .support-msg { height: 45px; resize: none; }
         .support-btn { background: var(--accent); color: white; border: none; padding: 8px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
-        .support-status { font-size: 9px; color: var(--safe); text-align: center; margin-top: 4px; font-family: monospace; display: none; }
 
         .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-top: 20px; line-height: 1.4; padding: 0 10px; box-sizing: border-box; }
         .legal-title { font-weight: bold; text-transform: uppercase; color: #5d626e; margin-bottom: 4px; }
 
-        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 20px; }
+        /* Relocated Meta Panel (Bottom of layout hierarchy) */
+        .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
+        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
+        .tracking-value { color: #888d99; font-family: monospace; }
+
+        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="profile-header">
+    <div class="profile-header" onclick="alert('Admin Panel: Verification Matrix Logged.')">
         <div class="user-block">
             <div class="avatar-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#888d99"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#5d626e"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             </div>
             <div class="user-info">
-                <span class="username">Ethan (Partner Account)</span>
-                <span class="account-tier">Pro Founder License</span>
+                <span class="username">Tone Strike Labs Admin Account</span>
+                <span class="account-tier">System Access Profile</span>
             </div>
         </div>
         <div class="status-dot-container">
             <div class="status-dot"></div>
-            <span>Online</span>
+            <span>Offline</span>
         </div>
     </div>
 
@@ -92,22 +94,19 @@
     
     <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
 
-    <div class="meta-panel">
-        <div class="tracking-row"><span>User Profile Tracking ID:</span><span class="tracking-value">TSL-9842-X</span></div>
-        <div class="tracking-row"><span>System Repair Registry Log:</span><span class="tracking-value">ERR-00-OK</span></div>
-        <div class="tracking-row"><span>System Download Metrics:</span><span class="tracking-value">1,412</span></div>
-    </div>
-
-    <div class="support-panel">
+    <form class="support-panel" action="https://formspree.io/f/xoqgkeev" method="POST" enctype="multipart/form-data">
         <div class="support-title">Tone Strike Labs Tech Support</div>
         <div class="support-form">
-            <input type="text" class="support-field" id="supportName" placeholder="Your Name">
-            <input type="email" class="support-field" id="supportEmail" placeholder="Your Email Address">
-            <textarea class="support-field support-msg" id="supportIssue" placeholder="Describe the system issue or repair request..."></textarea>
-            <button class="support-btn" onclick="submitTicket()">Submit Support Ticket</button>
-            <div class="support-status" id="ticketStatus">TICKET SUBMITTED SUCCESSFULLY</div>
+            <input type="text" name="name" class="support-field" placeholder="Your Name" required>
+            <input type="email" name="_replyto" class="support-field" placeholder="Your Email Address" required>
+            <textarea name="message" class="support-field support-msg" placeholder="Describe the system issue or repair request..." required></textarea>
+            
+            <span class="support-file-label">Attach Screenshot / Profile Avatar:</span>
+            <input type="file" name="attachment" class="support-field" accept="image/png, image/jpeg">
+            
+            <button type="submit" class="support-btn">Submit Support Ticket</button>
         </div>
-    </div>
+    </form>
 
     <div class="legal-box">
         <div class="legal-title">Commercial Disclaimers & Licensing</div>
@@ -117,7 +116,13 @@
         Standard monthly licensing fees ($19.99/mo) and Pro Founder Lifetime passes ($149.00) qualify for a full refund within fourteen (14) days of transaction origin, provided no license key abuse or source code reproduction has occurred. Contact administrative options to initiate processing requests.
     </div>
 
-    <div class="footer-tag">Tone Strike Labs | Ver. 2.2 (Comparison Mode)</div>
+    <div class="meta-panel">
+        <div class="tracking-row"><span>User Profile Tracking ID:</span><span class="tracking-value">TSL-9842-X</span></div>
+        <div class="tracking-row"><span>System Repair Registry Log:</span><span class="tracking-value">ERR-00-OK</span></div>
+        <div class="tracking-row"><span>System Download Metrics:</span><span class="tracking-value">1,412</span></div>
+    </div>
+
+    <div class="footer-tag">System Engineered by Tone Strike Labs | Ver. 2.2</div>
 
     <script>
         function verify(u) {
@@ -143,32 +148,6 @@
             }, 1000);
         }
         function verifyBoth() { verify('A'); setTimeout(() => verify('B'), 300); }
-        
-        function submitTicket() {
-            const name = document.getElementById('supportName').value;
-            const email = document.getElementById('supportEmail').value;
-            const issue = document.getElementById('supportIssue').value;
-            const status = document.getElementById('ticketStatus');
-            
-            if(!name || !email || !issue) {
-                status.innerText = "ALL FIELDS REQUIRED";
-                status.style.color = "#ffcc00";
-                status.style.display = "block";
-                return;
-            }
-            
-            status.innerText = "TRANSMITTING TICKET...";
-            status.style.color = "#e53935";
-            status.style.display = "block";
-            
-            setTimeout(() => {
-                status.innerText = "TICKET SUBMITTED SUCCESSFULLY";
-                status.style.color = "#00ff66";
-                document.getElementById('supportName').value = '';
-                document.getElementById('supportEmail').value = '';
-                document.getElementById('supportIssue').value = '';
-            }, 1200);
-        }
     </script>
 </body>
 </html>
