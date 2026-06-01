@@ -8,10 +8,11 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         
-        /* Interactive User Profile Input Header Bar - Clean Text Version */
+        /* Interactive User Profile Input Header Bar */
         .profile-header { display: flex; flex-direction: column; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; gap: 8px; }
         .profile-display-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .user-block { display: flex; flex-direction: column; text-align: left; }
+        .user-block { display: flex; align-items: center; gap: 10px; }
+        .user-info { display: flex; flex-direction: column; text-align: left; }
         .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
         .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; margin-top: 2px; }
         .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
@@ -38,7 +39,7 @@
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
         .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        /* Tech Support Contact Section (Pure Free Text) */
+        /* Tech Support Contact Section */
         .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; }
         .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         .support-form { display: flex; flex-direction: column; gap: 8px; }
@@ -47,11 +48,12 @@
         .support-field::placeholder { color: #5d626e; }
         .support-msg { height: 50px; resize: none; }
         .support-btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 4px; }
+        .support-validation-status { font-size: 9px; text-align: center; font-family: monospace; font-weight: bold; display: none; margin-top: 4px; letter-spacing: 0.5px; }
 
         .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-top: 20px; line-height: 1.4; padding: 0 10px; box-sizing: border-box; }
         .legal-title { font-weight: bold; text-transform: uppercase; color: #5d626e; margin-bottom: 4px; }
 
-        /* Relocated Meta Panel (Bottom of layout hierarchy) */
+        /* Administrative Meta Panel */
         .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
         .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
         .tracking-value { color: #888d99; font-family: monospace; }
@@ -100,15 +102,16 @@
     
     <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
 
-    <form class="support-panel" action="https://formspree.io/f/xoqgkeev" method="POST">
+    <div class="support-panel">
         <div class="support-title">Tone Strike Labs Tech Support</div>
-        <div class="support-form">
-            <input type="text" name="name" class="support-field" placeholder="Your Name" required>
-            <input type="email" name="_replyto" class="support-field" placeholder="Your Email Address" required>
-            <textarea name="message" class="support-field support-msg" placeholder="Describe the system issue or repair request..." required></textarea>
+        <form class="support-form" id="supportForm" action="https://formspree.io/f/xoqgkeev" method="POST" onsubmit="return validateSupportForm(event)">
+            <input type="text" name="name" id="supportName" class="support-field" placeholder="Your Name">
+            <input type="text" name="_replyto" id="supportEmail" class="support-field" placeholder="Your Email Address">
+            <textarea name="message" id="supportMessage" class="support-field support-msg" placeholder="Describe the system issue or repair request..."></textarea>
+            <div class="support-validation-status" id="validationAlert"></div>
             <button type="submit" class="support-btn">Submit Support Ticket</button>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <div class="legal-box">
         <div class="legal-title">Commercial Disclaimers & Licensing</div>
@@ -143,6 +146,37 @@
                 dotDisplay.style.boxShadow = "0 0 6px var(--safe)";
                 document.getElementById('userInputName').value = "";
             }
+        }
+
+        function validateSupportForm(event) {
+            const name = document.getElementById('supportName').value.trim();
+            const email = document.getElementById('supportEmail').value.trim();
+            const msg = document.getElementById('supportMessage').value.trim();
+            const alertBox = document.getElementById('validationAlert');
+            
+            // Standard cryptographic regex pattern to test for legitimate emails (e.g., name@domain.com)
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!name || !email || !msg) {
+                event.preventDefault();
+                alertBox.innerText = "ERROR: ALL FIELDS REQUIRED";
+                alertBox.style.color = "var(--accent)";
+                alertBox.style.display = "block";
+                return false;
+            }
+
+            if (!emailPattern.test(email)) {
+                event.preventDefault(); // Stop form submission entirely
+                alertBox.innerText = "ERROR: PLEASE INCLUDE A VALID EMAIL";
+                alertBox.style.color = "var(--accent)";
+                alertBox.style.display = "block";
+                return false;
+            }
+
+            alertBox.innerText = "TRANSMITTING TICKET DATA...";
+            alertBox.style.color = "var(--safe)";
+            alertBox.style.display = "block";
+            return true;
         }
 
         function verify(u) {
