@@ -40,21 +40,20 @@
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
         .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        /* Tech Support Contact Section */
+        /* Tech Support Contact Section (Free Pure Text Version) */
         .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; }
         .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         .support-form { display: flex; flex-direction: column; gap: 8px; }
         .support-field { background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 6px; border-radius: 4px; font-family: inherit; }
         .support-field:focus { border-color: var(--accent); outline: none; }
         .support-field::placeholder { color: #5d626e; }
-        .support-file-label { font-size: 8px; color: #888d99; text-transform: uppercase; margin-top: 2px; font-weight: bold; }
-        .support-msg { height: 45px; resize: none; }
-        .support-btn { background: var(--accent); color: white; border: none; padding: 8px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+        .support-msg { height: 50px; resize: none; }
+        .support-btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 4px; }
 
         .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-top: 20px; line-height: 1.4; padding: 0 10px; box-sizing: border-box; }
         .legal-title { font-weight: bold; text-transform: uppercase; color: #5d626e; margin-bottom: 4px; }
 
-        /* Relocated Meta Panel (Bottom of layout hierarchy) */
+        /* Administrative Meta Panel (Bottom Hierarchy) */
         .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
         .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
         .tracking-value { color: #888d99; font-family: monospace; }
@@ -108,16 +107,12 @@
     
     <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
 
-    <form class="support-panel" action="https://formspree.io/f/xoqgkeev" method="POST" enctype="multipart/form-data">
+    <form class="support-panel" action="https://formspree.io/f/xoqgkeev" method="POST">
         <div class="support-title">Tone Strike Labs Tech Support</div>
         <div class="support-form">
             <input type="text" name="name" class="support-field" placeholder="Your Name" required>
             <input type="email" name="_replyto" class="support-field" placeholder="Your Email Address" required>
             <textarea name="message" class="support-field support-msg" placeholder="Describe the system issue or repair request..." required></textarea>
-            
-            <span class="support-file-label">Attach Screenshot / Profile Avatar:</span>
-            <input type="file" name="attachment" class="support-field" accept="image/png, image/jpeg">
-            
             <button type="submit" class="support-btn">Submit Support Ticket</button>
         </div>
     </form>
