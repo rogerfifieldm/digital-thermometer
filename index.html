@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 <head>
-    <meta charset="UTF-8"> 
-    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Dual-Logic Barometer</title>
+    <title>AI Dual-Logic Comparison</title>
     <style>
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 15px 0; font-weight: bold; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
-        .app-container { background: var(--panel); padding: 15px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .unit-title { font-size: 9px; color: #5d626e; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
+        
+        /* Clickable Input Boxes */
+        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: #00ff66; font-size: 10px; padding: 5px; border-radius: 4px; margin-bottom: 10px; height: 50px; resize: none; font-family: monospace; }
+        .ai-input:focus { border-color: var(--accent); outline: none; }
+
         .score-display { font-size: 32px; font-weight: bold; margin: 5px 0; color: var(--accent); min-height: 40px; }
         .unit { font-size: 12px; color: #5d626e; }
         .status-bar { background: #111318; padding: 4px; border-radius: 4px; font-size: 8px; color: #888d99; margin-bottom: 12px; border: 1px solid #242731; height: 28px; display: flex; align-items: center; justify-content: center; }
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
-        .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; }
+        .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 10px; }
     </style>
 </head>
@@ -25,33 +29,46 @@
     <div class="split-grid">
         <div class="app-container">
             <div class="unit-title">AI Unit A</div>
-            <div class="status-bar" id="statusA">Ready</div>
+            <textarea class="ai-input" id="inputA" placeholder="Paste AI Result A..."></textarea>
+            <div class="status-bar" id="statusA">Awaiting Data</div>
             <div class="score-display"><span id="scoreA">--</span><span class="unit">%</span></div>
             <button class="btn" onclick="verify('A')">Verify A</button>
         </div>
         <div class="app-container">
             <div class="unit-title">AI Unit B</div>
-            <div class="status-bar" id="statusB">Ready</div>
+            <textarea class="ai-input" id="inputB" placeholder="Paste AI Result B..."></textarea>
+            <div class="status-bar" id="statusB">Awaiting Data</div>
             <div class="score-display"><span id="scoreB">--</span><span class="unit">%</span></div>
             <button class="btn" onclick="verify('B')">Verify B</button>
         </div>
     </div>
-    <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Race</button>
-    <div class="footer-tag">Tone Strike Labs | Ver. 2.1 (Dual Mode)</div>
+    <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
+    <div class="footer-tag">Tone Strike Labs | Ver. 2.2 (Comparison Mode)</div>
+
     <script>
         function verify(u) {
+            const input = document.getElementById('input' + u).value;
             const s = document.getElementById('status' + u);
             const sc = document.getElementById('score' + u);
-            s.innerText = "Analyzing...";
+            
+            if(!input) {
+                s.innerText = "INPUT REQUIRED";
+                s.style.color = "#ffcc00";
+                return;
+            }
+
+            s.innerText = "Analyzing Logic...";
+            s.style.color = "#e53935";
+            
             setTimeout(() => {
                 const r = (Math.random() * (100 - 45) + 45).toFixed(1);
                 sc.innerText = r;
                 s.innerText = r > 85 ? "CREDIBLE" : r > 65 ? "NEUTRAL" : "LOW TRUST";
                 s.style.color = r > 85 ? "#00ff66" : r > 65 ? "#aaa" : "#e53935";
                 sc.style.color = s.style.color;
-            }, 800); 
+            }, 1000);
         }
-        function verifyBoth() { verify('A'); setTimeout(() => verify('B'), 250); } 
+        function verifyBoth() { verify('A'); setTimeout(() => verify('B'), 300); }
     </script>
 </body>
 </html>
