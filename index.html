@@ -7,26 +7,9 @@
     <style>
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
-        
-        /* Interactive User Profile Input Header Bar - Clean Text Version */
-        .profile-header { display: flex; flex-direction: column; background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; box-sizing: border-box; gap: 8px; }
-        .profile-display-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .user-block { display: flex; flex-direction: column; text-align: left; }
-        .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
-        .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; margin-top: 2px; }
-        .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
-        .status-dot { width: 6px; height: 6px; background: #5d626e; border-radius: 50%; }
-        
-        /* Input controls inside the header */
-        .profile-input-row { display: flex; gap: 6px; width: 100%; border-top: 1px solid #242731; padding-top: 8px; }
-        .profile-field { flex: 1; background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 5px; border-radius: 4px; font-family: inherit; }
-        .profile-field:focus { border-color: var(--accent); outline: none; }
-        .profile-btn { background: #333; color: white; border: 1px solid #444; padding: 5px 10px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
-        .profile-btn:hover { background: var(--accent); border-color: var(--accent); }
-
-        .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 15px 0; font-weight: bold; }
+        .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 15px 0; font-weight: bold; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
-        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin-bottom: 10px; }
         .unit-title { font-size: 9px; color: #5d626e; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
         
         .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: #00ff66; font-size: 10px; padding: 5px; border-radius: 4px; margin-bottom: 10px; height: 50px; resize: none; font-family: monospace; }
@@ -36,52 +19,21 @@
         .unit { font-size: 12px; color: #5d626e; }
         .status-bar { background: #111318; padding: 4px; border-radius: 4px; font-size: 8px; color: #888d99; margin-bottom: 12px; border: 1px solid #242731; height: 28px; display: flex; align-items: center; justify-content: center; }
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; }
-        .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
+        .btn-all { background: #333; margin: 10px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        /* Tech Support Contact Section */
-        .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; }
-        .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
-        .support-form { display: flex; flex-direction: column; gap: 8px; }
-        .support-field { background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 6px; border-radius: 4px; font-family: inherit; }
+        /* Tech Support Form Styles */
+        .support-panel { background: var(--panel); border: 1px solid #2a2d37; border-radius: 12px; padding: 15px; width: 100%; max-width: 400px; box-sizing: border-box; text-align: left; margin-top: 15px; }
+        .support-title { font-size: 11px; color: #888d99; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; margin-bottom: 10px; text-align: center; }
+        .support-field { width: 100%; background: #0b0c10; border: 1px solid #333; color: white; font-size: 11px; padding: 8px; border-radius: 4px; margin-bottom: 8px; box-sizing: border-box; }
         .support-field:focus { border-color: var(--accent); outline: none; }
-        .support-field::placeholder { color: #5d626e; }
-        .support-msg { height: 50px; resize: none; }
-        .support-btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 4px; font-size: 9px; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 4px; }
-        .support-validation-status { font-size: 9px; text-align: center; font-family: monospace; font-weight: bold; display: none; margin-top: 4px; letter-spacing: 0.5px; }
+        .btn-submit { background: #222; color: var(--safe); border: 1px solid #333; width: 100%; padding: 10px; font-weight: bold; text-transform: uppercase; font-size: 10px; border-radius: 4px; cursor: pointer; }
+        .btn-submit:hover { background: #00ff66; color: black; }
 
-        .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-top: 20px; line-height: 1.4; padding: 0 10px; box-sizing: border-box; }
-        .legal-title { font-weight: bold; text-transform: uppercase; color: #5d626e; margin-bottom: 4px; }
-
-        /* Administrative Meta Panel */
-        .meta-panel { background: #111318; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; box-sizing: border-box; }
-        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1a1c23; color: #888d99; }
-        .tracking-value { color: #888d99; font-family: monospace; }
-
-        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
+        .footer-tag { font-size: 9px; color: #3a3f50; letter-spacing: 1px; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
-
-    <div class="profile-header">
-        <div class="profile-display-row">
-            <div class="user-block">
-                <span class="username" id="displayUsername">Tone Strike Labs Admin Account</span>
-                <span class="account-tier" id="displayTier">System Access Profile</span>
-            </div>
-            <div class="status-dot-container">
-                <div class="status-dot" id="displayDot"></div>
-                <span id="displayStatus">Offline</span>
-            </div>
-        </div>
-        
-        <div class="profile-input-row">
-            <input type="text" id="userInputName" class="profile-field" placeholder="Enter Username...">
-            <button class="profile-btn" onclick="updateUserProfile()">Set User</button>
-        </div>
-    </div>
-
     <div class="header-label">AI Logic Comparison Matrix</div>
-    
     <div class="split-grid">
         <div class="app-container">
             <div class="unit-title">AI Unit A</div>
@@ -98,88 +50,20 @@
             <button class="btn" onclick="verify('B')">Verify B</button>
         </div>
     </div>
-    
     <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
 
     <div class="support-panel">
-        <div class="support-title">Tone Strike Labs Tech Support</div>
-        <form class="support-form" id="supportForm" action="https://formspree.io/f/xoqgkeev" method="POST" onsubmit="return validateSupportForm(event)">
-            <input type="text" name="name" id="supportName" class="support-field" placeholder="Your Name">
-            <input type="text" name="_replyto" id="supportEmail" class="support-field" placeholder="Your Email Address">
-            <textarea name="message" id="supportMessage" class="support-field support-msg" placeholder="Describe the system issue or repair request..."></textarea>
-            <div class="support-validation-status" id="validationAlert"></div>
-            <button type="submit" class="support-btn">Submit Support Ticket</button>
+        <div class="support-title">Tone Strike Tech Support</div>
+        <form action="https://formspree.io/f/maqzwelr" method="POST">
+            <input type="email" name="email" class="support-field" placeholder="User Email Address" required>
+            <textarea name="message" class="support-field" style="height:60px; resize:none;" placeholder="Describe the system issue or bug..." required></textarea>
+            <button type="submit" class="btn-submit">Submit Ticket to Tech Support</button>
         </form>
     </div>
 
-    <div class="legal-box">
-        <div class="legal-title">Commercial Disclaimers & Licensing</div>
-        This application utility is properties of Tone Strike Labs. All logical analytical scores generated are for verification and comparative evaluation purposes only. Tone Strike Labs guarantees no specific external data outcomes. 
-        <br><br>
-        <div class="legal-title">Return & Refund Policy</div>
-        Standard monthly licensing fees ($19.99/mo) and Pro Founder Lifetime passes ($149.00) qualify for a full refund within fourteen (14) days of transaction origin, provided no license key abuse or source code reproduction has occurred. Contact administrative options to initiate processing requests.
-    </div>
-
-    <div class="meta-panel">
-        <div class="tracking-row"><span>User Profile Tracking ID:</span><span class="tracking-value">TSL-9842-X</span></div>
-        <div class="tracking-row"><span>System Repair Registry Log:</span><span class="tracking-value">ERR-00-OK</span></div>
-        <div class="tracking-row"><span>System Download Metrics:</span><span class="tracking-value">1,412</span></div>
-    </div>
-
-    <div class="footer-tag">System Engineered by Tone Strike Labs | Ver. 2.2</div>
+    <div class="footer-tag">Tone Strike Labs | Ver. 2.3 (Support Mode)</div>
 
     <script>
-        function updateUserProfile() {
-            const nameInput = document.getElementById('userInputName').value;
-            const nameDisplay = document.getElementById('displayUsername');
-            const tierDisplay = document.getElementById('displayTier');
-            const statusDisplay = document.getElementById('displayStatus');
-            const dotDisplay = document.getElementById('displayDot');
-            
-            if(nameInput.trim() !== "") {
-                nameDisplay.innerText = nameInput;
-                tierDisplay.innerText = "Authenticated Session User";
-                statusDisplay.innerText = "Online";
-                statusDisplay.style.color = "var(--safe)";
-                dotDisplay.style.background = "var(--safe)";
-                dotDisplay.style.boxShadow = "0 0 6px var(--safe)";
-                document.getElementById('userInputName').value = "";
-            }
-        }
-
-        function validateSupportForm(event) {
-            const name = document.getElementById('supportName').value.trim();
-            const email = document.getElementById('supportEmail').value.trim();
-            const msg = document.getElementById('supportMessage').value.trim();
-            const alertBox = document.getElementById('validationAlert');
-            
-            // Comprehensive regular expression checking for a standard email pattern (letters/numbers + @ + domain)
-            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-            // 1st Priority: Check if fields are actually completely empty
-            if (!name || !email || !msg) {
-                event.preventDefault();
-                alertBox.innerText = "ERROR: ALL FIELDS REQUIRED";
-                alertBox.style.color = "var(--accent)";
-                alertBox.style.display = "block";
-                return false;
-            }
-
-            // 2nd Priority: Intercept incorrect layouts like "upto u and email"
-            if (!emailPattern.test(email)) {
-                event.preventDefault(); // Lock transmission
-                alertBox.innerText = "ERROR: PLEASE INPUT A PROPER EMAIL";
-                alertBox.style.color = "var(--accent)";
-                alertBox.style.display = "block";
-                return false;
-            }
-
-            alertBox.innerText = "TRANSMITTING TICKET DATA...";
-            alertBox.style.color = "var(--safe)";
-            alertBox.style.display = "block";
-            return true;
-        }
-
         function verify(u) {
             const input = document.getElementById('input' + u).value;
             const s = document.getElementById('status' + u);
