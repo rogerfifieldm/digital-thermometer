@@ -16,8 +16,8 @@
         .hidden { display: none !important; }
         .view-section { width: 100%; max-width: 410px; }
 
-        /* Profile Header */
-        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
+        /* Dashboard Header */
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
         .username { font-size: 11px; font-weight: bold; color: white; }
         
         /* Logic Grid */
@@ -26,17 +26,15 @@
         .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; height: 50px; resize: none; font-family: monospace; }
         .score-display { font-size: 32px; font-weight: bold; color: var(--accent); margin: 5px 0; }
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; width: 90%; font-size: 9px; text-transform: uppercase; cursor: pointer; }
-        .btn-all { background: #333; margin: 20px 0; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; color: white; }
+        .btn-all { background: #333; margin: 15px 0; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
         
-        /* Copyright Fine Print */
-        .copyright { font-size: 8px; color: #5d626e; text-align: center; margin-top: 5px; text-transform: uppercase; }
-
-        /* Profile/Contact Sheet Styles */
+        /* Admin/Contact Page Styles */
         .input-field { width: 100%; padding: 10px; margin: 5px 0; background: var(--panel); border: 1px solid #333; color: white; border-radius: 4px; font-size: 10px; box-sizing: border-box; }
         .support-panel { background: var(--panel); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #2a2d37; }
-        .legal-box { font-size: 8px; color: #4e5361; margin-top: 20px; text-align: justify; }
+        .legal-box { font-size: 8px; color: #5d626e; margin-top: 20px; text-align: justify; line-height: 1.4; }
         .meta-panel { background: #111318; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; }
-        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; color: #888d99; }
+        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; color: #888d99; font-family: monospace; }
+        .copyright { font-size: 8px; color: #5d626e; text-align: center; text-transform: uppercase; margin-top: 5px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -49,12 +47,12 @@
         <div class="split-grid">
             <div class="app-container">
                 <textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea>
-                <div class="score-display"><span id="scoreA">--</span></div>
+                <div class="score-display" id="scoreA">--</div>
                 <button class="btn" onclick="verify('A')">Verify A</button>
             </div>
             <div class="app-container">
                 <textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea>
-                <div class="score-display"><span id="scoreB">--</span></div>
+                <div class="score-display" id="scoreB">--</div>
                 <button class="btn" onclick="verify('B')">Verify B</button>
             </div>
         </div>
@@ -65,17 +63,19 @@
     <div id="profileView" class="view-section hidden">
         <h3>User Profile & Contact Sheet</h3>
         <input type="text" class="input-field" placeholder="Full Name">
-        <input type="text" class="input-field" placeholder="Email Address">
-        <input type="text" class="input-field" placeholder="Phone Number">
+        <input type="email" class="input-field" placeholder="Email Address">
+        <input type="tel" class="input-field" placeholder="Phone Number">
         <input type="text" class="input-field" placeholder="Home Address">
         <input type="text" class="input-field" placeholder="Birthday (MM/DD/YYYY)">
         <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Profile Updated')">Save Profile Information</button>
         
         <div class="support-panel">
-            <div style="font-weight:bold; color:var(--accent); margin-bottom:10px;">TECH SUPPORT</div>
+            <div style="font-weight:bold; color:var(--accent); margin-bottom:10px;">CONTACT US</div>
             <form action="https://formspree.io/f/maqzwelr" method="POST">
-                <input type="text" name="message" class="input-field" placeholder="Describe issue or bug...">
-                <button type="submit" class="btn" style="width:100%;">Submit Support Ticket</button>
+                <input type="text" name="name" class="input-field" placeholder="Your Name">
+                <input type="email" name="email" class="input-field" placeholder="Your Email Address">
+                <textarea name="message" class="input-field" style="height:60px;" placeholder="Leave your message/tech support request here..."></textarea>
+                <button type="submit" class="btn" style="width:100%;">Send Message</button>
             </form>
         </div>
 
@@ -87,7 +87,8 @@
         <div class="meta-panel">
             <div class="tracking-row"><span>User Profile Tracking ID:</span><span>TSL-9842-X</span></div>
             <div class="tracking-row"><span>System Repair Registry Log:</span><span>ERR-00-OK</span></div>
-            <div class="tracking-row"><span>System Download Metrics:</span><span>1,412</span></div>
+            <div class="tracking-row"><span>Total Downloads:</span><span>1,412</span></div>
+            <div class="tracking-row"><span>Build Date:</span><span>06/03/2026</span></div>
         </div>
         
         <button class="btn" style="width:100%; margin-top:20px;" onclick="toggleView()">Back to Dashboard</button>
