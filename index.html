@@ -7,100 +7,73 @@
     <link rel="apple-touch-icon" href="https://your-logo-url-here.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Tone Strike Comparison">
-    
     <style>
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
-        
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; box-sizing: border-box; }
         .hidden { display: none !important; }
-        .view-section { width: 100%; max-width: 410px; }
-
-        /* Dashboard Header */
-        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
-        .username { font-size: 11px; font-weight: bold; color: white; }
+        .view-section { width: 100%; max-width: 500px; }
         
-        /* Logic Grid */
-        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-        .app-container { background: var(--panel); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
-        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; height: 50px; resize: none; font-family: monospace; }
-        .score-display { font-size: 32px; font-weight: bold; color: var(--accent); margin: 5px 0; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; width: 90%; font-size: 9px; text-transform: uppercase; cursor: pointer; }
-        .btn-all { background: #333; margin: 15px 0; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 15px; border-radius: 10px; margin-bottom: 20px; cursor: pointer; }
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        .app-container { background: var(--panel); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
+        .ai-input { width: 100%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 12px; padding: 10px; height: 80px; resize: none; box-sizing: border-box; }
+        .btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; font-size: 10px; text-transform: uppercase; cursor: pointer; font-weight: bold; }
         
-        /* Admin/Contact Page Styles */
-        .input-field { width: 100%; padding: 10px; margin: 5px 0; background: var(--panel); border: 1px solid #333; color: white; border-radius: 4px; font-size: 10px; box-sizing: border-box; }
-        .support-panel { background: var(--panel); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #2a2d37; }
-        .legal-box { font-size: 8px; color: #5d626e; margin-top: 20px; text-align: justify; line-height: 1.4; }
-        .meta-panel { background: #111318; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; }
-        .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; color: #888d99; font-family: monospace; }
-        .copyright { font-size: 8px; color: #5d626e; text-align: center; text-transform: uppercase; margin-top: 5px; margin-bottom: 10px; }
+        .input-field { width: 100%; padding: 12px; margin: 8px 0; background: var(--bg); border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; }
+        .footer-branding { font-size: 9px; color: #5d626e; text-align: center; margin-top: 30px; text-transform: uppercase; border-top: 1px solid #1a1c23; padding-top: 15px; }
     </style>
 </head>
 <body>
 
     <div id="mainView" class="view-section">
         <div class="profile-header" onclick="toggleView()">
-            <span class="username" id="displayUsername">Tone Strike Labs Admin Account</span><br>
-            <span style="font-size: 8px; color: #888d99;">TAP TO VIEW/EDIT PROFILE</span>
+            <span style="font-size: 13px; font-weight: bold;">Tone Strike Labs Admin Account</span><br>
+            <span style="font-size: 9px; color: #888d99;">TAP TO VIEW/EDIT PROFILE</span>
         </div>
         <div class="split-grid">
-            <div class="app-container">
-                <textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea>
-                <div class="score-display" id="scoreA">--</div>
-                <button class="btn" onclick="verify('A')">Verify A</button>
-            </div>
-            <div class="app-container">
-                <textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea>
-                <div class="score-display" id="scoreB">--</div>
-                <button class="btn" onclick="verify('B')">Verify B</button>
-            </div>
+            <div class="app-container"><textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea><button class="btn" style="margin-top:10px;" onclick="verify('A')">Verify A</button></div>
+            <div class="app-container"><textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea><button class="btn" style="margin-top:10px;" onclick="verify('B')">Verify B</button></div>
         </div>
-        <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
-        <div class="copyright">© 2026 Tone Strike Labs. All Rights Reserved.</div>
+        <button class="btn" style="margin-top:20px; padding:20px; font-size:14px;" onclick="verifyBoth()">Run Dual Logic Comparison</button>
+        <div class="footer-branding">© 2026 Tone Strike Labs. All Rights Reserved.</div>
     </div>
 
     <div id="profileView" class="view-section hidden">
-        <h3>User Profile & Contact Sheet</h3>
-        <input type="text" class="input-field" placeholder="Full Name">
-        <input type="email" class="input-field" placeholder="Email Address">
-        <input type="tel" class="input-field" placeholder="Phone Number">
-        <input type="text" class="input-field" placeholder="Home Address">
-        <input type="text" class="input-field" placeholder="Birthday (MM/DD/YYYY)">
-        <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Profile Updated')">Save Profile Information</button>
-        
-        <div class="support-panel">
-            <div style="font-weight:bold; color:var(--accent); margin-bottom:10px;">CONTACT US</div>
+        <h3>User Identity & Contact</h3>
+        <input type="text" id="name" class="input-field" placeholder="Full Name">
+        <input type="email" id="email" class="input-field" placeholder="Email Address">
+        <input type="tel" id="phone" class="input-field" placeholder="Phone (e.g. 813-555-0199)">
+        <input type="text" id="bday" class="input-field" placeholder="Birthday (MM/DD/YYYY)">
+        <button class="btn" onclick="saveProfile()">Save Profile Information</button>
+
+        <div class="support-panel" style="margin-top:20px;">
+            <div style="font-weight:bold; color:var(--accent);">CONTACT US</div>
             <form action="https://formspree.io/f/maqzwelr" method="POST">
                 <input type="text" name="name" class="input-field" placeholder="Your Name">
-                <input type="email" name="email" class="input-field" placeholder="Your Email Address">
-                <textarea name="message" class="input-field" style="height:60px;" placeholder="Leave your message/tech support request here..."></textarea>
-                <button type="submit" class="btn" style="width:100%;">Send Message</button>
+                <textarea name="message" class="input-field" placeholder="Technical support or inquiry..."></textarea>
+                <button type="submit" class="btn">Send Message</button>
             </form>
         </div>
 
-        <div class="legal-box">
-            <strong>Commercial Disclaimers & Licensing:</strong> This application utility is property of Tone Strike Labs. All logical analytical scores generated are for verification and comparative evaluation purposes only. Tone Strike Labs guarantees no specific external data outcomes.<br><br>
-            <strong>Return & Refund Policy:</strong> Standard monthly licensing fees ($19.99/mo) and Pro Founder Lifetime passes ($149.00) qualify for a full refund within fourteen (14) days of transaction origin, provided no license key abuse or source code reproduction has occurred. Contact administrative options to initiate processing requests.
-        </div>
-
-        <div class="meta-panel">
-            <div class="tracking-row"><span>User Profile Tracking ID:</span><span>TSL-9842-X</span></div>
-            <div class="tracking-row"><span>System Repair Registry Log:</span><span>ERR-00-OK</span></div>
-            <div class="tracking-row"><span>Total Downloads:</span><span>1,412</span></div>
-            <div class="tracking-row"><span>Build Date:</span><span>06/03/2026</span></div>
+        <div class="legal-box" style="margin-top:30px;">
+            <strong>Legal Terms & Disclaimers:</strong> This application is the exclusive property of Tone Strike Labs. Use of this conversion tool is subject to compliance with system safety protocols. All analytical outputs are provided "as-is" for comparative evaluation only. Tone Strike Labs disclaims all liability for data interpretation errors. Users agree that professional financial/legal advice should be sought independently.
         </div>
         
-        <button class="btn" style="width:100%; margin-top:20px;" onclick="toggleView()">Back to Dashboard</button>
+        <button class="btn" style="margin-top:30px; background:#444;" onclick="toggleView()">Back to Dashboard</button>
+        <div class="footer-branding">© 2026 Tone Strike Labs. All Rights Reserved.</div>
     </div>
 
     <script>
-        function toggleView() {
-            document.getElementById('mainView').classList.toggle('hidden');
-            document.getElementById('profileView').classList.toggle('hidden');
+        function toggleView() { document.getElementById('mainView').classList.toggle('hidden'); document.getElementById('profileView').classList.toggle('hidden'); }
+        function saveProfile() {
+            const phone = document.getElementById('phone').value;
+            const bday = document.getElementById('bday').value;
+            const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+            if (!phoneRegex.test(phone)) { alert("Invalid Phone Format: Use 813-555-0199"); return; }
+            alert("Profile Validated & Saved.");
         }
-        function verify(u) { document.getElementById('score' + u).innerText = (Math.random() * (100 - 45) + 45).toFixed(1); }
-        function verifyBoth() { verify('A'); setTimeout(() => verify('B'), 300); }
+        function verify(u) { alert("Processing..."); }
+        function verifyBoth() { alert("Dual-Logic Initiated..."); }
     </script>
 </body>
 </html>
