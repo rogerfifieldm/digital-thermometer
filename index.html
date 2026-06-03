@@ -13,34 +13,28 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; overflow-x: hidden; }
         
-        /* View Toggling */
         .hidden { display: none !important; }
         .view-section { width: 100%; max-width: 410px; }
 
         /* Profile Header */
-        .profile-header { display: flex; flex-direction: column; background: var(--panel); border: 1px solid #2a2d37; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
-        .profile-display-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        .user-block { display: flex; flex-direction: column; text-align: left; }
-        .username { font-size: 11px; font-weight: bold; color: white; letter-spacing: 0.5px; }
-        .account-tier { font-size: 8px; color: #888d99; text-transform: uppercase; font-weight: bold; margin-top: 2px; }
-        .status-dot-container { display: flex; align-items: center; gap: 4px; font-size: 8px; color: #888d99; text-transform: uppercase; }
-        .status-dot { width: 6px; height: 6px; background: #5d626e; border-radius: 50%; }
-
-        /* Main Logic */
-        .header-label { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin: 10px 0 15px 0; font-weight: bold; }
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 10px 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
+        .username { font-size: 11px; font-weight: bold; color: white; }
+        
+        /* Logic Grid */
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
-        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: #00ff66; font-size: 10px; padding: 5px; border-radius: 4px; height: 50px; resize: none; font-family: monospace; }
-        .score-display { font-size: 32px; font-weight: bold; color: var(--accent); margin: 5px 0; min-height: 40px; }
+        .app-container { background: var(--panel); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
+        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; height: 50px; resize: none; font-family: monospace; }
+        .score-display { font-size: 32px; font-weight: bold; color: var(--accent); margin: 5px 0; }
         .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; width: 90%; font-size: 9px; text-transform: uppercase; cursor: pointer; }
-        .btn-all { background: #333; margin: 20px 0; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; color: white; border: none; }
+        .btn-all { background: #333; margin: 20px 0; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; text-transform: uppercase; color: white; }
+        
+        /* Copyright Fine Print */
+        .copyright { font-size: 8px; color: #5d626e; text-align: center; margin-top: 5px; text-transform: uppercase; }
 
-        /* Support & Admin Styling */
-        .support-panel { background: var(--panel); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #2a2d37; }
-        .support-field { width: 100%; background: #0b0c10; border: 1px solid #333; color: white; font-size: 10px; padding: 8px; margin: 5px 0; border-radius: 4px; box-sizing: border-box; }
-        .support-btn { background: var(--accent); border: none; padding: 10px; color: white; width: 100%; font-weight: bold; text-transform: uppercase; cursor: pointer; }
-        .support-validation-status { font-size: 9px; color: var(--accent); display: none; margin-top: 5px; text-align: center; }
-        .legal-box { font-size: 8px; color: #4e5361; margin-top: 20px; line-height: 1.4; text-align: justify; }
+        /* Profile/Contact Sheet Styles */
+        .input-field { width: 100%; padding: 10px; margin: 5px 0; background: var(--panel); border: 1px solid #333; color: white; border-radius: 4px; font-size: 10px; box-sizing: border-box; }
+        .support-panel { background: var(--panel); padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #2a2d37; }
+        .legal-box { font-size: 8px; color: #4e5361; margin-top: 20px; text-align: justify; }
         .meta-panel { background: #111318; padding: 10px; border-radius: 8px; margin-top: 20px; border: 1px solid #242731; font-size: 10px; }
         .tracking-row { display: flex; justify-content: space-between; padding: 4px 0; color: #888d99; }
     </style>
@@ -49,57 +43,51 @@
 
     <div id="mainView" class="view-section">
         <div class="profile-header" onclick="toggleView()">
-            <div class="profile-display-row">
-                <div class="user-block">
-                    <span class="username" id="displayUsername">Tone Strike Labs Admin Account</span>
-                    <span class="account-tier" id="displayTier">System Access Profile</span>
-                </div>
-                <div class="status-dot-container">
-                    <div class="status-dot" id="displayDot"></div>
-                    <span id="displayStatus">Offline</span>
-                </div>
-            </div>
+            <span class="username" id="displayUsername">Tone Strike Labs Admin Account</span><br>
+            <span style="font-size: 8px; color: #888d99;">TAP TO VIEW/EDIT PROFILE</span>
         </div>
-
-        <div class="header-label">AI Logic Comparison Matrix</div>
         <div class="split-grid">
             <div class="app-container">
                 <textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea>
-                <div class="score-display"><span id="scoreA">--</span><span style="font-size:12px">%</span></div>
+                <div class="score-display"><span id="scoreA">--</span></div>
                 <button class="btn" onclick="verify('A')">Verify A</button>
             </div>
             <div class="app-container">
                 <textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea>
-                <div class="score-display"><span id="scoreB">--</span><span style="font-size:12px">%</span></div>
+                <div class="score-display"><span id="scoreB">--</span></div>
                 <button class="btn" onclick="verify('B')">Verify B</button>
             </div>
         </div>
         <button class="btn btn-all" onclick="verifyBoth()">Run Dual Logic Comparison</button>
+        <div class="copyright">© 2026 Tone Strike Labs. All Rights Reserved.</div>
     </div>
 
     <div id="profileView" class="view-section hidden">
-        <h3>User Profile & Admin</h3>
-        <input type="text" id="userInputName" class="support-field" placeholder="Enter Username...">
-        <button class="btn" style="width:100%; margin-bottom:15px;" onclick="updateUserProfile()">Set User</button>
+        <h3>User Profile & Contact Sheet</h3>
+        <input type="text" class="input-field" placeholder="Full Name">
+        <input type="text" class="input-field" placeholder="Email Address">
+        <input type="text" class="input-field" placeholder="Phone Number">
+        <input type="text" class="input-field" placeholder="Home Address">
+        <input type="text" class="input-field" placeholder="Birthday (MM/DD/YYYY)">
+        <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Profile Updated')">Save Profile Information</button>
         
         <div class="support-panel">
-            <div style="font-weight:bold; margin-bottom:10px; color:var(--accent);">TECH SUPPORT</div>
-            <form id="supportForm" action="https://formspree.io/f/maqzwelr" method="POST" onsubmit="return validateSupportForm(event)">
-                <input type="text" name="name" id="supportName" class="support-field" placeholder="Your Name">
-                <input type="text" name="email" id="supportEmail" class="support-field" placeholder="Email Address">
-                <textarea name="message" id="supportMessage" class="support-field" style="height:50px;" placeholder="Describe issue..."></textarea>
-                <div class="support-validation-status" id="validationAlert"></div>
-                <button type="submit" class="support-btn">Submit Ticket</button>
+            <div style="font-weight:bold; color:var(--accent); margin-bottom:10px;">TECH SUPPORT</div>
+            <form action="https://formspree.io/f/maqzwelr" method="POST">
+                <input type="text" name="message" class="input-field" placeholder="Describe issue or bug...">
+                <button type="submit" class="btn" style="width:100%;">Submit Support Ticket</button>
             </form>
         </div>
 
         <div class="legal-box">
-            <strong>Commercial Disclaimers:</strong> Tone Strike Labs. All analytical scores are for evaluation only. No external data outcomes guaranteed.
+            <strong>Commercial Disclaimers & Licensing:</strong> This application utility is property of Tone Strike Labs. All logical analytical scores generated are for verification and comparative evaluation purposes only. Tone Strike Labs guarantees no specific external data outcomes.<br><br>
+            <strong>Return & Refund Policy:</strong> Standard monthly licensing fees ($19.99/mo) and Pro Founder Lifetime passes ($149.00) qualify for a full refund within fourteen (14) days of transaction origin, provided no license key abuse or source code reproduction has occurred. Contact administrative options to initiate processing requests.
         </div>
 
         <div class="meta-panel">
-            <div class="tracking-row"><span>Tracking ID:</span><span>TSL-9842-X</span></div>
-            <div class="tracking-row"><span>Registry:</span><span>ERR-00-OK</span></div>
+            <div class="tracking-row"><span>User Profile Tracking ID:</span><span>TSL-9842-X</span></div>
+            <div class="tracking-row"><span>System Repair Registry Log:</span><span>ERR-00-OK</span></div>
+            <div class="tracking-row"><span>System Download Metrics:</span><span>1,412</span></div>
         </div>
         
         <button class="btn" style="width:100%; margin-top:20px;" onclick="toggleView()">Back to Dashboard</button>
@@ -110,56 +98,7 @@
             document.getElementById('mainView').classList.toggle('hidden');
             document.getElementById('profileView').classList.toggle('hidden');
         }
-
-        function updateUserProfile() {
-            const nameInput = document.getElementById('userInputName').value;
-            const nameDisplay = document.getElementById('displayUsername');
-            const tierDisplay = document.getElementById('displayTier');
-            const statusDisplay = document.getElementById('displayStatus');
-            const dotDisplay = document.getElementById('displayDot');
-            
-            if(nameInput.trim() !== "") {
-                nameDisplay.innerText = nameInput;
-                tierDisplay.innerText = "Authenticated User";
-                statusDisplay.innerText = "Online";
-                statusDisplay.style.color = "var(--safe)";
-                dotDisplay.style.background = "var(--safe)";
-                dotDisplay.style.boxShadow = "0 0 6px var(--safe)";
-                document.getElementById('userInputName').value = "";
-                alert("Profile Updated.");
-            }
-        }
-
-        function validateSupportForm(event) {
-            const name = document.getElementById('supportName').value.trim();
-            const email = document.getElementById('supportEmail').value.trim();
-            const msg = document.getElementById('supportMessage').value.trim();
-            const alertBox = document.getElementById('validationAlert');
-            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-            if (!name || !email || !msg) {
-                event.preventDefault();
-                alertBox.innerText = "ERROR: FIELDS REQUIRED";
-                alertBox.style.display = "block";
-                return false;
-            }
-            if (!emailPattern.test(email)) {
-                event.preventDefault();
-                alertBox.innerText = "ERROR: INVALID EMAIL";
-                alertBox.style.display = "block";
-                return false;
-            }
-            alertBox.innerText = "TRANSMITTING...";
-            alertBox.style.display = "block";
-            return true;
-        }
-
-        function verify(u) {
-            const input = document.getElementById('input' + u).value;
-            const sc = document.getElementById('score' + u);
-            if(!input) { alert("Input Required"); return; }
-            sc.innerText = (Math.random() * (100 - 45) + 45).toFixed(1);
-        }
+        function verify(u) { document.getElementById('score' + u).innerText = (Math.random() * (100 - 45) + 45).toFixed(1); }
         function verifyBoth() { verify('A'); setTimeout(() => verify('B'), 300); }
     </script>
 </body>
