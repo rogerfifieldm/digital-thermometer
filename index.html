@@ -8,60 +8,92 @@
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; }
         
-        .admin-header { width: 100%; max-width: 410px; background: #000; border: 1px solid #242731; border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .admin-status { display: flex; align-items: center; gap: 8px; color: var(--safe); font-size: 9px; font-weight: bold; text-transform: uppercase; }
+        /* Header & Admin Bar */
+        .admin-header { width: 100%; max-width: 410px; background: #000; border: 1px solid #242731; border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; box-sizing: border-box; }
+        .status-light { display: flex; align-items: center; gap: 8px; color: var(--safe); font-size: 9px; font-weight: bold; text-transform: uppercase; }
         .green-dot { width: 8px; height: 8px; background: var(--safe); border-radius: 50%; box-shadow: 0 0 8px var(--safe); }
+
+        /* Profile Bar */
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        .username { font-size: 11px; font-weight: bold; }
         
+        /* Matrix Grid */
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
-        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
-        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; border-radius: 4px; height: 60px; resize: none; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; margin-top: 5px; }
+        .app-container { background: var(--panel); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
+        .ai-input { width: 100%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; border-radius: 4px; height: 50px; resize: none; box-sizing: border-box; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 9px; text-transform: uppercase; margin-top: 5px; }
         
-        .score-display { font-size: 24px; font-weight: bold; margin: 10px 0; color: var(--safe); }
-        .content-box { display: none; background: #111; padding: 10px; border-radius: 5px; font-size: 9px; margin-top: 5px; color: #ccc; border: 1px solid #333; }
-        .policy-link { color: #888; text-decoration: underline; font-size: 10px; cursor: pointer; margin: 5px; }
+        /* Utilities */
+        .content-box { display: none; background: #111; padding: 15px; border-radius: 5px; font-size: 10px; margin-top: 10px; border: 1px solid #333; max-width: 410px; width: 100%; box-sizing: border-box; }
+        .link-row { margin: 15px 0; text-align: center; }
+        .policy-link { color: #888; text-decoration: underline; font-size: 10px; cursor: pointer; margin: 0 10px; }
+        
+        .meta-panel { background: #111; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; font-size: 9px; color: #555; }
     </style>
 </head>
 <body>
 
     <div class="admin-header">
-        <div class="admin-status"><div class="green-dot"></div> SYSTEM OPERATIONAL</div>
+        <div class="status-light"><div class="green-dot"></div> SYSTEM OPERATIONAL</div>
+        <div style="font-size: 9px;">AUTH: ACTIVE</div>
+    </div>
+
+    <div class="profile-header">
+        <div class="username" id="displayUsername">TONE STRIKE LABS ADMIN</div>
     </div>
 
     <div class="split-grid">
         <div class="app-container">
             <textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea>
-            <div id="scoreA" class="score-display">--%</div>
+            <div id="scoreA" style="font-size:24px; color:var(--safe); margin:5px;">--%</div>
             <button class="btn" onclick="analyze('A')">Verify A</button>
         </div>
         <div class="app-container">
             <textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea>
-            <div id="scoreB" class="score-display">--%</div>
-            <button class="btn" onclick="analyze('B')">Verify B</button>
+            <div id="scoreB" style="font-size:24px; color:var(--safe); margin:5px;">--%</div>
+            <button class="btn" onclick="verify('B')">Verify B</button>
         </div>
     </div>
 
+    <div class="link-row">
+        <span class="policy-link" onclick="toggle('supportBox')">TECH SUPPORT</span>
+        <span class="policy-link" onclick="toggle('legalBox')">LEGAL DISCLAIMER</span>
+        <span class="policy-link" onclick="toggle('refundBox')">REFUND POLICY</span>
+    </div>
+
+    <div id="supportBox" class="content-box">
+        <form action="https://formspree.io/f/xoqgkeev" method="POST">
+            <input type="text" placeholder="Name" style="width:100%; background:#000; border:1px solid #333; color:#fff; margin-bottom:5px;">
+            <textarea placeholder="Issue..." style="width:100%; background:#000; border:1px solid #333; color:#fff;"></textarea>
+            <button type="submit" class="btn">SUBMIT</button>
+        </form>
+    </div>
+
+    <div id="legalBox" class="content-box">
+        <strong>LEGAL DISCLAIMER:</strong> This utility is the exclusive property of Tone Strike Labs. All analytical outputs are provided for individual diagnostic evaluation only. We expressly disclaim liability for data interpretation.
+    </div>
+
+    <div id="refundBox" class="content-box">
+        <strong>REFUND POLICY:</strong> Standard monthly fees ($19.99) and Lifetime passes ($149.00) qualify for a refund within 14 days, provided no license key abuse has occurred.
+    </div>
+
+    <div class="meta-panel">
+        <div>TRACKING ID: TSL-9842-X | METRICS: 1,412 | VERSION: 2.2</div>
+    </div>
+
     <script>
+        function toggle(id) {
+            let el = document.getElementById(id);
+            el.style.display = (el.style.display === "block") ? "none" : "block";
+        }
         function analyze(u) {
-            let text = document.getElementById('input' + u).value.toLowerCase();
-            if(text.length < 20) { alert("Input too short for logical integrity analysis."); return; }
-            
-            let score = 70; // Baseline
-            
-            // Filter 1: Emotional Bias Deductions
-            const emotionalWords = ['hate', 'never', 'always', 'terrible', 'stupid', 'awful', 'destroy', 'angry'];
-            emotionalWords.forEach(word => { if (text.includes(word)) score -= 8; });
-            
-            // Filter 2: Logical Connector Additions (The "Pro" Logic Markers)
-            const logicalConnectors = ['because', 'therefore', 'consequently', 'evidence', 'data', 'proven', 'analysis', 'logic', 'fact'];
-            logicalConnectors.forEach(word => { if (text.includes(word)) score += 12; });
-            
-            // Filter 3: Structural Integrity (length validation)
-            if (text.length > 200) score += 5;
-            
-            let finalScore = Math.min(Math.max(score, 0), 100);
-            document.getElementById('score' + u).innerText = finalScore + "%";
-            document.getElementById('score' + u).style.color = finalScore > 75 ? "var(--safe)" : "#e53935";
+            let input = document.getElementById('input'+u).value.toLowerCase();
+            let score = 70;
+            const bad = ['hate', 'never', 'always', 'terrible', 'stupid', 'awful', 'destroy'];
+            const good = ['because', 'therefore', 'evidence', 'data', 'proven', 'analysis'];
+            bad.forEach(w => { if(input.includes(w)) score -= 8; });
+            good.forEach(w => { if(input.includes(w)) score += 12; });
+            document.getElementById('score'+u).innerText = Math.min(Math.max(score, 0), 100) + "%";
         }
     </script>
 </body>
