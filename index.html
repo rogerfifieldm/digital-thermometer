@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Dual-Logic Comparison</title>
-    <link rel="apple-touch-icon" href="https://your-logo-url-here.png">
+    <title>Tone Strike Labs | Logic Assessment Engine</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
@@ -12,15 +11,14 @@
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; box-sizing: border-box; }
         .hidden { display: none !important; }
         .view-section { width: 100%; max-width: 500px; }
-        
-        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 15px; border-radius: 10px; margin-bottom: 20px; cursor: pointer; }
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; padding: 15px; border-radius: 10px; margin-bottom: 20px; cursor: pointer; text-align: center; }
         .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
         .app-container { background: var(--panel); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
         .ai-input { width: 100%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 12px; padding: 10px; height: 80px; resize: none; box-sizing: border-box; }
-        .btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; font-size: 10px; text-transform: uppercase; cursor: pointer; font-weight: bold; }
-        
+        .btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; font-size: 10px; text-transform: uppercase; cursor: pointer; font-weight: bold; margin-top: 10px; }
         .input-field { width: 100%; padding: 12px; margin: 8px 0; background: var(--bg); border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; }
         .footer-branding { font-size: 9px; color: #5d626e; text-align: center; margin-top: 30px; text-transform: uppercase; border-top: 1px solid #1a1c23; padding-top: 15px; }
+        #scoreDisplay { margin-top: 20px; padding: 15px; background: #000; border: 1px solid var(--accent); border-radius: 8px; text-align: center; display: none; }
     </style>
 </head>
 <body>
@@ -31,10 +29,16 @@
             <span style="font-size: 9px; color: #888d99;">TAP TO VIEW/EDIT PROFILE</span>
         </div>
         <div class="split-grid">
-            <div class="app-container"><textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea><button class="btn" style="margin-top:10px;" onclick="verify('A')">Verify A</button></div>
-            <div class="app-container"><textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea><button class="btn" style="margin-top:10px;" onclick="verify('B')">Verify B</button></div>
+            <div class="app-container"><textarea class="ai-input" id="inputA" placeholder="AI Result A..."></textarea><button class="btn" onclick="analyze('A')">Verify A</button></div>
+            <div class="app-container"><textarea class="ai-input" id="inputB" placeholder="AI Result B..."></textarea><button class="btn" onclick="analyze('B')">Verify B</button></div>
         </div>
-        <button class="btn" style="margin-top:20px; padding:20px; font-size:14px;" onclick="verifyBoth()">Run Dual Logic Comparison</button>
+        
+        <div id="scoreDisplay">
+            <h4 id="scoreValue" style="color:var(--safe); margin:0;"></h4>
+            <p id="scoreDetail" style="font-size:11px; margin:5px 0 0 0;"></p>
+        </div>
+
+        <button class="btn" style="margin-top:20px; padding:15px; font-size:12px;" onclick="verifyBoth()">Run Dual Logic Comparison</button>
         <div class="footer-branding">© 2026 Tone Strike Labs. All Rights Reserved.</div>
     </div>
 
@@ -42,21 +46,14 @@
         <h3>User Identity & Contact</h3>
         <input type="text" id="name" class="input-field" placeholder="Full Name">
         <input type="email" id="email" class="input-field" placeholder="Email Address">
-        <input type="tel" id="phone" class="input-field" placeholder="Phone (e.g. 813-555-0199)">
-        <input type="text" id="bday" class="input-field" placeholder="Birthday (MM/DD/YYYY)">
+        <input type="tel" id="phone" class="input-field" placeholder="Phone (813-555-0199)">
         <button class="btn" onclick="saveProfile()">Save Profile Information</button>
 
-        <div class="support-panel" style="margin-top:20px;">
-            <div style="font-weight:bold; color:var(--accent);">CONTACT US</div>
-            <form action="https://formspree.io/f/maqzwelr" method="POST">
-                <input type="text" name="name" class="input-field" placeholder="Your Name">
-                <textarea name="message" class="input-field" placeholder="Technical support or inquiry..."></textarea>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </div>
-
-        <div class="legal-box" style="margin-top:30px;">
-            <strong>Legal Terms & Disclaimers:</strong> This application is the exclusive property of Tone Strike Labs. Use of this conversion tool is subject to compliance with system safety protocols. All analytical outputs are provided "as-is" for comparative evaluation only. Tone Strike Labs disclaims all liability for data interpretation errors. Users agree that professional financial/legal advice should be sought independently.
+        <div style="margin-top:20px; border-top: 1px solid #333; padding-top: 20px;">
+            <div style="font-weight:bold; color:var(--accent); cursor:pointer;" onclick="toggleLegal()">Legal Terms & Disclaimers</div>
+            <div id="legalSection" class="hidden" style="font-size: 10px; color: #aaa; margin-top: 10px;">
+                Tone Strike Labs "Logic Comparison Engine" is for individual diagnostic evaluation. Not for political or public figure analysis. Tone Strike Labs assumes no liability for interpretation.
+            </div>
         </div>
         
         <button class="btn" style="margin-top:30px; background:#444;" onclick="toggleView()">Back to Dashboard</button>
@@ -65,14 +62,30 @@
 
     <script>
         function toggleView() { document.getElementById('mainView').classList.toggle('hidden'); document.getElementById('profileView').classList.toggle('hidden'); }
+        function toggleLegal() { document.getElementById('legalSection').classList.toggle('hidden'); }
+        
+        function analyze(id) {
+            let text = document.getElementById('input' + id).value;
+            if(text.length < 10) { alert("Input too short for analysis."); return; }
+            
+            let score = 70;
+            const emotional = ['hate', 'never', 'always', 'terrible', 'stupid', 'awful', 'destroy'];
+            emotional.forEach(word => { if (text.toLowerCase().includes(word)) score -= 8; });
+            const logical = ['because', 'therefore', 'evidence', 'data', 'proven', 'analysis'];
+            logical.forEach(word => { if (text.toLowerCase().includes(word)) score += 12; });
+            
+            document.getElementById('scoreValue').innerText = "CREDIBILITY SCORE: " + Math.min(score, 100) + "%";
+            document.getElementById('scoreDetail').innerText = score > 80 ? "High logical coherence detected." : "Analysis indicates emotional bias; verify data.";
+            document.getElementById('scoreDisplay').style.display = "block";
+        }
+
         function saveProfile() {
+            const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
-            const bday = document.getElementById('bday').value;
-            const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
-            if (!phoneRegex.test(phone)) { alert("Invalid Phone Format: Use 813-555-0199"); return; }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) { alert("Invalid Email."); return; }
             alert("Profile Validated & Saved.");
         }
-        function verify(u) { alert("Processing..."); }
         function verifyBoth() { alert("Dual-Logic Initiated..."); }
     </script>
 </body>
