@@ -3,43 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tone Strike Labs | Dual-Logic Engine</title>
+    <title>AI Dual-Logic Comparison</title>
     <style>
         :root { --bg: #0b0c10; --panel: #1a1c23; --accent: #e53935; --safe: #00ff66; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 10px; box-sizing: border-box; }
-        
-        /* Header & Admin Bar */
-        .admin-header { width: 100%; max-width: 410px; background: #000; border: 1px solid #242731; border-radius: 8px; padding: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; box-sizing: border-box; }
-        .status-light { display: flex; align-items: center; gap: 8px; color: var(--safe); font-size: 9px; font-weight: bold; text-transform: uppercase; }
-        .green-dot { width: 8px; height: 8px; background: var(--safe); border-radius: 50%; box-shadow: 0 0 8px var(--safe); }
 
-        /* Profile Bar */
-        .profile-header { background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
+        /* ADMIN BAR */
+        .admin-bar-top { width: 100%; max-width: 410px; background: #000; border: 1px solid #242731; border-radius: 8px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; box-sizing: border-box; }
+        .system-status { display: flex; align-items: center; gap: 6px; color: var(--safe); font-size: 8px; font-weight: bold; text-transform: uppercase; }
+        .green-dot { width: 6px; height: 6px; background: var(--safe); border-radius: 50%; box-shadow: 0 0 5px var(--safe); }
+        .toggle-switch { width: 24px; height: 10px; background: #333; border-radius: 5px; cursor: pointer; }
+
+        /* ORIGINAL PROFILE HEADER */
+        .profile-header { background: var(--panel); border: 1px solid #2a2d37; width: 100%; max-width: 410px; padding: 10px; border-radius: 10px; margin-bottom: 15px; text-align: center; }
         .username { font-size: 11px; font-weight: bold; }
+
+        /* ORIGINAL MATRIX */
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; margin-bottom: 15px; }
+        .app-container { background: var(--panel); padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
+        .ai-input { width: 90%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; border-radius: 4px; height: 50px; resize: none; }
+        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 90%; font-size: 9px; text-transform: uppercase; margin-top: 5px; }
+        .btn-all { background: #333; width: 100%; max-width: 380px; padding: 15px; border-radius: 10px; font-size: 13px; font-weight: bold; text-transform: uppercase; border: none; color: white; margin-bottom: 20px; }
+
+        /* SUPPORT & LEGAL SECTIONS */
+        .support-panel { background: var(--panel); width: 100%; max-width: 410px; padding: 15px; border-radius: 10px; border: 1px solid #2a2d37; box-sizing: border-box; text-align: left; margin-bottom: 15px; }
+        .support-title { font-size: 11px; color: var(--accent); text-transform: uppercase; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #242731; padding-bottom: 4px; }
+        .support-field { width: 100%; background: #0b0c10; border: 1px solid #333; color: white; padding: 6px; border-radius: 4px; box-sizing: border-box; margin-bottom: 5px; }
         
-        /* Matrix Grid */
-        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 420px; }
-        .app-container { background: var(--panel); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #2a2d37; }
-        .ai-input { width: 100%; background: #0b0c10; border: 1px solid #333; color: var(--safe); font-size: 10px; padding: 5px; border-radius: 4px; height: 50px; resize: none; box-sizing: border-box; }
-        .btn { background: var(--accent); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 9px; text-transform: uppercase; margin-top: 5px; }
-        
-        /* Utilities */
-        .content-box { display: none; background: #111; padding: 15px; border-radius: 5px; font-size: 10px; margin-top: 10px; border: 1px solid #333; max-width: 410px; width: 100%; box-sizing: border-box; }
-        .link-row { margin: 15px 0; text-align: center; }
-        .policy-link { color: #888; text-decoration: underline; font-size: 10px; cursor: pointer; margin: 0 10px; }
-        
-        .meta-panel { background: #111; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; margin-top: 20px; font-size: 9px; color: #555; }
+        .legal-box { width: 100%; max-width: 410px; font-size: 8px; color: #4e5361; text-align: justify; margin-bottom: 10px; line-height: 1.4; }
+        .meta-panel { background: #111; width: 100%; max-width: 410px; padding: 10px; border-radius: 8px; border: 1px solid #242731; font-size: 9px; color: #555; }
     </style>
 </head>
 <body>
 
-    <div class="admin-header">
-        <div class="status-light"><div class="green-dot"></div> SYSTEM OPERATIONAL</div>
-        <div style="font-size: 9px;">AUTH: ACTIVE</div>
+    <div class="admin-bar-top">
+        <div class="system-status"><div class="green-dot"></div> SYSTEM OPERATIONAL</div>
+        <div class="toggle-switch"></div>
     </div>
 
     <div class="profile-header">
-        <div class="username" id="displayUsername">TONE STRIKE LABS ADMIN</div>
+        <div class="username">TONE STRIKE LABS ADMIN</div>
     </div>
 
     <div class="split-grid">
@@ -55,46 +58,34 @@
         </div>
     </div>
 
-    <div class="link-row">
-        <span class="policy-link" onclick="toggle('supportBox')">TECH SUPPORT</span>
-        <span class="policy-link" onclick="toggle('legalBox')">LEGAL DISCLAIMER</span>
-        <span class="policy-link" onclick="toggle('refundBox')">REFUND POLICY</span>
+    <button class="btn btn-all" onclick="analyzeBoth()">Run Dual Logic Comparison</button>
+
+    <div class="support-panel">
+        <div class="support-title">Tone Strike Labs Tech Support</div>
+        <input type="text" class="support-field" placeholder="Name">
+        <textarea class="support-field" placeholder="Issue..." style="height: 50px;"></textarea>
+        <button class="btn" style="width:100%; margin-top:0;">SUBMIT SUPPORT TICKET</button>
     </div>
 
-    <div id="supportBox" class="content-box">
-        <form action="https://formspree.io/f/xoqgkeev" method="POST">
-            <input type="text" placeholder="Name" style="width:100%; background:#000; border:1px solid #333; color:#fff; margin-bottom:5px;">
-            <textarea placeholder="Issue..." style="width:100%; background:#000; border:1px solid #333; color:#fff;"></textarea>
-            <button type="submit" class="btn">SUBMIT</button>
-        </form>
+    <div class="legal-box">
+        <strong>COMMERCIAL DISCLOSURES:</strong> This utility is the property of Tone Strike Labs. All analytical outputs are for individual diagnostic evaluation. 
+        <br><br>
+        <strong>REFUND POLICY:</strong> Standard fees ($19.99) and Lifetime passes ($149.00) qualify for refund within 14 days.
     </div>
 
-    <div id="legalBox" class="content-box">
-        <strong>LEGAL DISCLAIMER:</strong> This utility is the exclusive property of Tone Strike Labs. All analytical outputs are provided for individual diagnostic evaluation only. We expressly disclaim liability for data interpretation.
-    </div>
-
-    <div id="refundBox" class="content-box">
-        <strong>REFUND POLICY:</strong> Standard monthly fees ($19.99) and Lifetime passes ($149.00) qualify for a refund within 14 days, provided no license key abuse has occurred.
-    </div>
-
-    <div class="meta-panel">
-        <div>TRACKING ID: TSL-9842-X | METRICS: 1,412 | VERSION: 2.2</div>
-    </div>
+    <div class="meta-panel">TSL-9842-X | METRICS: 1,412 | VER: 2.2</div>
 
     <script>
-        function toggle(id) {
-            let el = document.getElementById(id);
-            el.style.display = (el.style.display === "block") ? "none" : "block";
-        }
         function analyze(u) {
-            let input = document.getElementById('input'+u).value.toLowerCase();
+            let val = document.getElementById('input'+u).value.toLowerCase();
             let score = 70;
             const bad = ['hate', 'never', 'always', 'terrible', 'stupid', 'awful', 'destroy'];
             const good = ['because', 'therefore', 'evidence', 'data', 'proven', 'analysis'];
-            bad.forEach(w => { if(input.includes(w)) score -= 8; });
-            good.forEach(w => { if(input.includes(w)) score += 12; });
+            bad.forEach(w => { if(val.includes(w)) score -= 8; });
+            good.forEach(w => { if(val.includes(w)) score += 12; });
             document.getElementById('score'+u).innerText = Math.min(Math.max(score, 0), 100) + "%";
         }
+        function analyzeBoth() { analyze('A'); analyze('B'); }
     </script>
 </body>
 </html>
